@@ -1,8 +1,10 @@
 ﻿
-namespace PaginationControl
+namespace Controles_Personalizado
 {
     using System;
+    using System.ComponentModel;
     using System.Drawing;
+    using System.Threading.Tasks;
     using System.Windows.Forms;
 
     public partial class Paginador : UserControl
@@ -27,7 +29,7 @@ namespace PaginationControl
                 if (_WhithBody)
                 {
                     this.BackColor = Color.Transparent;
-                    this.BackgroundImage = Properties.Resources.Body;
+                    this.BackgroundImage = PaginationControl.Properties.Resources.Body;
                 }
                 else
                 {
@@ -40,6 +42,8 @@ namespace PaginationControl
 
 
         private Color _ChangeOptionColor = Color.Transparent;
+
+
         public Color ChangeOptionColor
         {
             get
@@ -126,8 +130,10 @@ namespace PaginationControl
         }
 
 
-
         private int? _Pag = 0;
+
+        [Category("Options")]
+        [DefaultValue(0)]
         public int Pag
         {
             get
@@ -141,7 +147,7 @@ namespace PaginationControl
 
                 if (_Pag != null)
                 {
-                    BTOne.BackColor = _OpcionColor;
+                   // BTOne.BackColor = _OpcionColor;
 
                     if (_Pag == 1)
                     {
@@ -155,7 +161,7 @@ namespace PaginationControl
                     }
                     else if (_Pag == 2)
                     {
-                        BTRigth.Location = new System.Drawing.Point(100, 3);
+                        BTRigth.Location = new System.Drawing.Point(134, 3);
 
                         BTTwo.Visible = true;
 
@@ -168,7 +174,7 @@ namespace PaginationControl
                     }
                     else if (_Pag == 3)
                     {
-                        BTRigth.Location = new System.Drawing.Point(132, 3);
+                        BTRigth.Location = new System.Drawing.Point(166, 3);
 
                         BTTree.Visible = true;
 
@@ -180,7 +186,7 @@ namespace PaginationControl
                     }
                     else if (_Pag == 4)
                     {
-                        BTRigth.Location = new System.Drawing.Point(164, 3);
+                        BTRigth.Location = new System.Drawing.Point(198, 3);
 
                         BTFor.Visible = true;
 
@@ -191,7 +197,7 @@ namespace PaginationControl
                     }
                     else if (_Pag >= 5)
                     {
-                        BTRigth.Location = new System.Drawing.Point(196, 3);
+                        BTRigth.Location = new System.Drawing.Point(230, 3);
 
                         BTFive.Visible = true;
 
@@ -202,12 +208,13 @@ namespace PaginationControl
                     this.Width = BTRigth.Location.X + BTRigth.Width + 4;
                 }
             }
+
         }
 
 
 
-        private Func<int, int> _ShowWhithPagination;
-        public Func<int, int> ShowWhithPagination
+        private Func<int, Task<int>> _ShowWhithPagination;
+        public Func<int, Task<int>> ShowWhithPagination
         {
             private get
             {
@@ -220,6 +227,7 @@ namespace PaginationControl
 
                 ResettingButtons();
                 MarkBT(BTOne);
+
                 ChangePage(1, _ShowWhithPagination);
 
             }
@@ -233,8 +241,8 @@ namespace PaginationControl
         {
             InitializeComponent();
 
-            this.MinimumSize = new Size(229, 31);
-            this.MaximumSize = new Size(229, 31);
+            this.MinimumSize = new Size(232, 31);
+            this.MaximumSize = new Size(232, 31);
 
             _TextPaginationEmpty.Location = new Point(this.Width / 2 - _TextPaginationEmpty.Width / 2, this.Height / 2 - _TextPaginationEmpty.Height / 2);
         }
@@ -244,7 +252,7 @@ namespace PaginationControl
 
         private void BTOne_Click(object sender, EventArgs e)
         {
-            MarkBT(sender);
+            MarkBT(((Button)sender));
             ChangePage(int.Parse(((Button)sender).Text), _ShowWhithPagination);
         }
 
@@ -255,7 +263,7 @@ namespace PaginationControl
         /// Metodo que se encarga de margar el boton seleccionado
         /// </summary>
         /// <param name="sender">Un objeto de tipo boton que a sido selecionado</param>
-        public void MarkBT(object sender)
+        public void MarkBT(Button sender)
         {
             BTOne.BackColor = _ColorUnselected;
             BTTwo.BackColor = _ColorUnselected;
@@ -263,7 +271,7 @@ namespace PaginationControl
             BTFor.BackColor = _ColorUnselected;
             BTFive.BackColor = _ColorUnselected;
 
-            ((Button)sender).BackColor = _OpcionColor;
+            sender.BackColor = _OpcionColor;
         }
 
 
@@ -301,21 +309,30 @@ namespace PaginationControl
             }
             else if (BTTwo.BackColor == _OpcionColor)
             {
-                MarkBT(BTTree);
+                if (_Pag > 2)
+                {
+                    MarkBT(BTTree);
 
-                ChangePage(int.Parse(BTTree.Text), _ShowWhithPagination);
+                    ChangePage(int.Parse(BTTree.Text), _ShowWhithPagination);
+                }
             }
             else if (BTTree.BackColor == _OpcionColor)
             {
-                MarkBT(BTFor);
+                if (_Pag > 3)
+                {
+                    MarkBT(BTFor);
 
-                ChangePage(int.Parse(BTFor.Text), _ShowWhithPagination);
+                    ChangePage(int.Parse(BTFor.Text), _ShowWhithPagination);
+                }
             }
             else if (BTFor.BackColor == _OpcionColor)
             {
-                MarkBT(BTFive);
+                if (_Pag > 4)
+                {
+                    MarkBT(BTFive);
 
-                ChangePage(int.Parse(BTFive.Text), _ShowWhithPagination);
+                    ChangePage(int.Parse(BTFive.Text), _ShowWhithPagination);
+                }
             }
             else if (BTFive.BackColor == _OpcionColor)
             {
@@ -328,7 +345,8 @@ namespace PaginationControl
                     BTOne.Text = (int.Parse(BTOne.Text) + 1).ToString();
                 }
 
-                ChangePage(int.Parse(BTFive.Text), _ShowWhithPagination);
+                //if (_Pag == 5)
+                    ChangePage(int.Parse(BTFive.Text), _ShowWhithPagination);
             }
         }
 
@@ -383,20 +401,25 @@ namespace PaginationControl
         /// </summary>
         /// <param name="pag">Pagina que se desea trael de la base de datos.</param>
         /// <param name="_ShowWhithPagination">Metodo que se encarga de trael los datos de la base de datos y retornar el numero de paginas.</param>
-        private void ChangePage(int pag, Func<int, int> _ShowWhithPagination)
+        private async void ChangePage(int pag, Func<int, Task<int>> _ShowWhithPagination)
         {
-            var pages = _ShowWhithPagination(pag);
-
-            if (pages == 0)
+            if (_ShowWhithPagination != null)
             {
-                ComponentVisible(false);
+                var pages = await _ShowWhithPagination(pag);
+
+                if (pages == 0 || pages == null)
+                {
+                    ComponentVisible(false);
+                }
+                else
+                {
+                    ComponentVisible(true);
+
+                    Pag = pages;
+                }
             }
             else
-            {
-                ComponentVisible(true);
-
-                _Pag = pages;
-            }
+                MessageBox.Show("El delegado _ShowhithPagination es null");
         }
 
         /// <summary>

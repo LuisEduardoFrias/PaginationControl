@@ -1,4 +1,5 @@
-﻿namespace PaginationControl
+﻿
+namespace Controles_Personalizado
 {
     partial class Paginador
     {
@@ -27,14 +28,14 @@
             this.BTTree = new System.Windows.Forms.Button();
             this.BTFor = new System.Windows.Forms.Button();
             this.BTFive = new System.Windows.Forms.Button();
+            this.BTRigth = new System.Windows.Forms.Button();
             this.BTLeft = new System.Windows.Forms.Button();
             this._TextPaginationEmpty = new System.Windows.Forms.Label();
-            this.BTRigth = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BTOne
             // 
-            this.BTOne.BackColor = System.Drawing.Color.SkyBlue;
+            this.BTOne.BackColor = System.Drawing.Color.Transparent;
             this.BTOne.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BTOne.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.BTOne.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -127,6 +128,26 @@
             this.BTFive.MouseEnter += new System.EventHandler(this.BTLeft_MouseEnter);
             this.BTFive.MouseLeave += new System.EventHandler(this.BTLeft_MouseLeave);
             // 
+            // BTRigth
+            // 
+            this.BTRigth.BackColor = System.Drawing.Color.Transparent;
+            this.BTRigth.BackgroundImage = global::PaginationControl.Properties.Resources.Right;
+            this.BTRigth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BTRigth.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BTRigth.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.BTRigth.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.BTRigth.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.BTRigth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTRigth.Location = new System.Drawing.Point(196, 3);
+            this.BTRigth.Margin = new System.Windows.Forms.Padding(3, 3, 0, 0);
+            this.BTRigth.Name = "BTRigth";
+            this.BTRigth.Size = new System.Drawing.Size(25, 25);
+            this.BTRigth.TabIndex = 0;
+            this.BTRigth.UseVisualStyleBackColor = false;
+            this.BTRigth.Click += new System.EventHandler(this.BTRigth_Click);
+            this.BTRigth.MouseEnter += new System.EventHandler(this.BTLeft_MouseEnter);
+            this.BTRigth.MouseLeave += new System.EventHandler(this.BTLeft_MouseLeave);
+            // 
             // BTLeft
             // 
             this.BTLeft.BackColor = System.Drawing.Color.Transparent;
@@ -159,26 +180,6 @@
             this._TextPaginationEmpty.Text = "SIN DATOS PARA MOSTRAR";
             this._TextPaginationEmpty.Visible = false;
             // 
-            // BTRigth
-            // 
-            this.BTRigth.BackColor = System.Drawing.Color.Transparent;
-            this.BTRigth.BackgroundImage = global::PaginationControl.Properties.Resources.Right;
-            this.BTRigth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BTRigth.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BTRigth.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.BTRigth.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.BTRigth.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.BTRigth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTRigth.Location = new System.Drawing.Point(196, 3);
-            this.BTRigth.Margin = new System.Windows.Forms.Padding(3, 3, 0, 0);
-            this.BTRigth.Name = "BTRigth";
-            this.BTRigth.Size = new System.Drawing.Size(25, 25);
-            this.BTRigth.TabIndex = 0;
-            this.BTRigth.UseVisualStyleBackColor = false;
-            this.BTRigth.Click += new System.EventHandler(this.BTRigth_Click);
-            this.BTRigth.MouseEnter += new System.EventHandler(this.BTLeft_MouseEnter);
-            this.BTRigth.MouseLeave += new System.EventHandler(this.BTLeft_MouseLeave);
-            // 
             // Paginador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -195,7 +196,7 @@
             this.Controls.Add(this.BTLeft);
             this.DoubleBuffered = true;
             this.Name = "Paginador";
-            this.Size = new System.Drawing.Size(414, 31);
+            this.Size = new System.Drawing.Size(412, 31);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -211,3 +212,4 @@
         private System.Windows.Forms.Label _TextPaginationEmpty;
     }
 }
+
